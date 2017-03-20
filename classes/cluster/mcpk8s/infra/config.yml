@@ -22,12 +22,15 @@ parameters:
         kubernetes_control_node01:
           params:
             deploy_address: ${_param:kubernetes_control_node01_deploy_address}
+            linux_system_codename: xenial
         kubernetes_control_node02:
           params:
             deploy_address: ${_param:kubernetes_control_node02_deploy_address}
+            linux_system_codename: xenial
         kubernetes_control_node03:
           params:
             deploy_address: ${_param:kubernetes_control_node03_deploy_address}
+            linux_system_codename: xenial
         kubernetes_compute_node01:
           name: ${_param:kubernetes_compute_node01_hostname}
           domain: ${_param:cluster_domain}
