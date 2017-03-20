@@ -8,11 +8,11 @@ parameters:
   kubernetes:
     pool:
       network:
-        image: docker-prod-virtual.docker.mirantis.net/mirantis/projectcalico/calico/node:latest
+        image: calico/node:latest
         calicoctl:
-          image: docker-prod-virtual.docker.mirantis.net/mirantis/projectcalico/calico/ctl:latest
+          image: calico/ctl:latest
         cni:
-          image: docker-prod-virtual.docker.mirantis.net/mirantis/projectcalico/calico/cni:latest
+          image: calico/cni:latest
 
 #        volumes:
 #          - /srv/calico/bird.cfg.mesh.template:/etc/calico/confd/templates/bird.cfg.mesh.template
@@ -20,7 +20,7 @@ parameters:
 #          - /srv/calico/custom_filters.cfg:/etc/calico/confd/config/custom_filters.cfg
     common:
       hyperkube:
-        image: docker-prod-virtual.docker.mirantis.net/mirantis/kubernetes/hyperkube-amd64:v1.4.6-6
+        image: gcr.io/google_containers/hyperkube-amd64:v1.5.1
 ##FIXME
  # linux:
  #   network:
