@@ -1,6 +1,6 @@
 classes:
 - service.git.client
-- system.linux.system.single
+- cluster.mcpk8s.infra.config
 - system.openssh.client.lab
 - system.salt.master.single
 - system.salt.master.pkg

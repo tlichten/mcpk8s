@@ -7,7 +7,7 @@ classes:
 - cluster.mcpk8s.kubernetes
 parameters: 
   _param:
-    cluster_domain: mcpk8s.local
+    cluster_domain: mcp-fuel-aio.local
     reclass_data_revision: master
     cluster_name: mcpk8s
 
