@@ -10,9 +10,9 @@ parameters:
     reclass_data_repository: "https://github.com/tlichten/mcpk8s"
     reclass_data_revision: master
     salt_formula_branch: master
-    reclass_config_master: 10.80.183.1
-    single_address: 10.80.183.1
-    salt_master_host: 10.80.183.1
+    reclass_config_master: cfg01
+    single_address: 10.167.5.90
+    salt_master_host: cfg01
     salt_master_base_environment: prd
   linux:
     system:
