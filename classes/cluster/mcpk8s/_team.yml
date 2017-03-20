@@ -1,0 +1,24 @@
+##FIXME definition for customer users and ssh keys
+##TODO dynamic definition for user
+#parameters:
+#  linux:
+#    system:
+#      user:
+#        customer:
+#          enabled: true
+#          name: customer
+#          sudo: false
+#          full_name: Shared Customer
+#          home: /home/customer
+#  openssh:
+#    server:
+#      enabled: true
+#      user:
+#        customer:
+#          enabled: true
+#          public_keys:
+#          - ${public_keys:customer}
+#          user: ${linux:system:user:customer}
+#  public_keys:
+#    customer:
+#      key: <public_key>

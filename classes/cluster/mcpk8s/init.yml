@@ -1,0 +1,50 @@
+# Address plan covered at:
+# https://docs.google.com/spreadsheets/d/17jhct4awbaoXVKp7_SdCbS-DBlikB6oEMb3gzLI4By8/edit#gid=0
+classes:
+- system.linux.system.single
+- system.openssh.server.team.tcpcloud
+- cluster.mcpk8s.infra
+- cluster.mcpk8s.kubernetes
+parameters: 
+  _param:
+    cluster_domain: mcpk8s.local
+    reclass_data_revision: master
+    cluster_name: mcpk8s
+
+    # cert parameters
+    salt_minion_ca_host: ${_param:infra_config_hostname}.${_param:cluster_domain}
+    salt_minion_ca_authority: salt_master_ca
+
+    # infra service addresses
+    infra_config_address: 10.167.4.90
+    infra_config_deploy_address: 10.167.5.90
+    infra_config_hostname: cfg01
+
+    # node hostnames
+    kubernetes_compute_node01_hostname: cmp01
+    kubernetes_compute_node02_hostname: cmp02
+    kubernetes_control_node01_hostname: ctl01
+    kubernetes_control_node02_hostname: ctl02
+    kubernetes_control_node03_hostname: ctl03
+    kubernetes_control_hostname: ctl
+
+    # kubernetes deploy addresses
+    kubernetes_control_node01_deploy_address: 10.167.5.11
+    kubernetes_control_node02_deploy_address: 10.167.5.12
+    kubernetes_control_node03_deploy_address: 10.167.5.13
+    kubernetes_compute_node01_deploy_address: 10.167.5.101
+    kubernetes_compute_node02_deploy_address: 10.167.5.102
+
+    # kubernetes service addresses
+    kubernetes_control_address: 10.167.4.10
+    kubernetes_control_node01_address: 10.167.4.11
+    kubernetes_control_node02_address: 10.167.4.12
+    kubernetes_control_node03_address: 10.167.4.13
+
+    # kubernetes compute
+    kubernetes_compute_node01_single_address: 10.167.2.101
+    kubernetes_compute_node02_single_address: 10.167.2.102
+
+    ##FIXME if ntp defined
+    #ntp_strata_host1: 
+    #ntp_strata_host2:

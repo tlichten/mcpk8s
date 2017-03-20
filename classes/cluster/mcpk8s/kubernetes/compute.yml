@@ -1,0 +1,51 @@
+classes:
+- system.linux.system.repo.docker
+- system.kubernetes.pool.cluster
+- system.salt.minion.cert.k8s_client
+#- system.bird.server.single
+- cluster.mcpk8s
+parameters:
+  kubernetes:
+    pool:
+      network:
+        image: docker-prod-virtual.docker.mirantis.net/mirantis/projectcalico/calico/node:latest
+        calicoctl:
+          image: docker-prod-virtual.docker.mirantis.net/mirantis/projectcalico/calico/ctl:latest
+        cni:
+          image: docker-prod-virtual.docker.mirantis.net/mirantis/projectcalico/calico/cni:latest
+
+#        volumes:
+#          - /srv/calico/bird.cfg.mesh.template:/etc/calico/confd/templates/bird.cfg.mesh.template
+#          - /srv/calico/bird.cfg.no-mesh.template:/etc/calico/confd/templates/bird.cfg.no-mesh.template
+#          - /srv/calico/custom_filters.cfg:/etc/calico/confd/config/custom_filters.cfg
+    common:
+      hyperkube:
+        image: docker-prod-virtual.docker.mirantis.net/mirantis/kubernetes/hyperkube-amd64:v1.4.6-6
+##FIXME
+ # linux:
+ #   network:
+ #     interface:
+ #       eth0:
+ #         enabled: true
+ #         type: slave
+ #         master: bond1
+ #         mtu: 9000
+ #         pre_up_cmds:
+ #         - /sbin/ethtool --offload eth6 rx off tx off tso off gro off
+ #       eth1:
+ #         enabled: true
+ #         type: slave
+ #         master: bond1
+ #         mtu: 9000
+ #         pre_up_cmds:
+ #         - /sbin/ethtool --offload eth7 rx off tx off tso off gro off
+ #       bond0:
+ #         enabled: true
+ #         proto: manual
+ #         type: bond
+ #         use_interfaces:
+ #         - eth0
+ #         - eth1
+ #         slaves: eth0 eth1
+ #         mode: active-backup
+ #         mtu: 9000
