@@ -11,7 +11,7 @@ parameters:
     reclass_data_revision: master
     salt_formula_branch: master
     reclass_config_master: SALT_MASTER
-    single_address: 10.167.5.90
+    single_address: 10.167.4.90
     salt_master_host: SALT_MASTER
     salt_master_base_environment: prd
   linux:
