@@ -7,7 +7,7 @@ classes:
 - cluster.mcpk8s
 parameters:
   _param:
-    keepalived_vip_interface: weave.100
+    keepalived_vip_interface: weave
     keepalived_vip_virtual_router_id: 60
   etcd:
     server:
