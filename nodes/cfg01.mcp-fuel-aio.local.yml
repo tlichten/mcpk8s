@@ -27,4 +27,7 @@ parameters:
     minion:
       source:
         engine: pkg
-
+  reclass:
+    storage:
+      data_source:
+        engine: local
