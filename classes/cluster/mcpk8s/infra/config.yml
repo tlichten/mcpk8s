@@ -3,6 +3,7 @@ classes:
 - system.openssh.client.lab
 - system.salt.master.pkg
 - system.salt.minion.ca.salt_master
+- system.salt.minion.cert.k8s_server
 - system.reclass.storage.salt
 - system.reclass.storage.system.kubernetes_control_cluster
 - cluster.mcpk8s

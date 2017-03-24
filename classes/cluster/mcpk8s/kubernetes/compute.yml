@@ -2,12 +2,15 @@ classes:
 - system.linux.system.repo.docker
 - system.kubernetes.pool.cluster
 - system.salt.minion.cert.k8s_client
-#- system.bird.server.single
+- system.salt.minion.cert.etcd_client
 - cluster.mcpk8s
 parameters:
   kubernetes:
     pool:
       network:
+        etcd:
+          ssl:
+            enabled: true
         image: calico/node:latest
         calicoctl:
           image: calico/ctl:latest
