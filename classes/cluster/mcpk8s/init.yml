@@ -42,8 +42,8 @@ parameters:
     kubernetes_control_node03_address: 10.167.4.13
 
     # kubernetes compute
-    kubernetes_compute_node01_single_address: 10.167.2.101
-    kubernetes_compute_node02_single_address: 10.167.2.102
+    kubernetes_compute_node01_single_address: 10.167.4.101
+    kubernetes_compute_node02_single_address: 10.167.4.102
 
     ##FIXME if ntp defined
     #ntp_strata_host1: 
