@@ -18,5 +18,5 @@ parameters:
           - ${public_keys:tlichten}
           user: ${linux:system:user:tlichten}
   public_keys:
-    customer:
+    tlichten:
       key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDYCm9mv45IMWDs/RSRkBvVRplOgkODJZSBDxboqpqs1MZcLn12kw7jtV0Ks1oXa6eWPws6Ize7NOC76YJaSdPyQT+GNwBR8xePCRr1DtuSikod6F4t0trtka8/kDvX6YAwWFsZxqh9ekqG+8r3UZdpKNOzrgmnpcgevzxAhOKXtNCC3dUYPkUtx4fRjB9NUdAXEbW2asAt1FRQcmUwEpJ1C8jw7dppj57QF4DDMFmdoUp2Gdic80FYglygr93o1p2ftitqJ271aNFV2KcXi44V/neUvSyYMhAa6HwVvvM+JHLcqEU6CfTBNVPK6/2uVG8Uwb2+Vfy4so6QJ3pVzWur thomas@MacBook-Pro-9.local
