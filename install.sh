@@ -1,6 +1,5 @@
 #!/bin/bash -x
 
-set -e
 
 # Bootstrap nodes
 salt -C 'I@salt:master' state.sls linux
