@@ -5,6 +5,7 @@ classes:
 - system.openssh.server.team.tcpcloud
 - cluster.mcpk8s.infra
 - cluster.mcpk8s.kubernetes
+- cluster.mcpk8s._team
 parameters: 
   _param:
     cluster_domain: mcp-fuel-aio.local
