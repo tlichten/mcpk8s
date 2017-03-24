@@ -5,7 +5,7 @@ parameters:
         tlichten:
           enabled: true
           name: tlichten
-          sudo: false
+          sudo: true
           full_name: tlichten
           home: /home/tlichten
   openssh:
