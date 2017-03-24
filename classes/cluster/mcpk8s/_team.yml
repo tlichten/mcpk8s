@@ -1,24 +1,22 @@
-##FIXME definition for customer users and ssh keys
-##TODO dynamic definition for user
-#parameters:
-#  linux:
-#    system:
-#      user:
-#        customer:
-#          enabled: true
-#          name: customer
-#          sudo: false
-#          full_name: Shared Customer
-#          home: /home/customer
-#  openssh:
-#    server:
-#      enabled: true
-#      user:
-#        customer:
-#          enabled: true
-#          public_keys:
-#          - ${public_keys:customer}
-#          user: ${linux:system:user:customer}
-#  public_keys:
-#    customer:
-#      key: <public_key>
+parameters:
+  linux:
+    system:
+      user:
+        tlichten:
+          enabled: true
+          name: tlichten
+          sudo: false
+          full_name: tlichten
+          home: /home/tlichten
+  openssh:
+    server:
+      enabled: true
+      user:
+        tlichten:
+          enabled: true
+          public_keys:
+          - ${public_keys:tlichten}
+          user: ${linux:system:user:tlichten}
+  public_keys:
+    customer:
+      key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDYCm9mv45IMWDs/RSRkBvVRplOgkODJZSBDxboqpqs1MZcLn12kw7jtV0Ks1oXa6eWPws6Ize7NOC76YJaSdPyQT+GNwBR8xePCRr1DtuSikod6F4t0trtka8/kDvX6YAwWFsZxqh9ekqG+8r3UZdpKNOzrgmnpcgevzxAhOKXtNCC3dUYPkUtx4fRjB9NUdAXEbW2asAt1FRQcmUwEpJ1C8jw7dppj57QF4DDMFmdoUp2Gdic80FYglygr93o1p2ftitqJ271aNFV2KcXi44V/neUvSyYMhAa6HwVvvM+JHLcqEU6CfTBNVPK6/2uVG8Uwb2+Vfy4so6QJ3pVzWur thomas@MacBook-Pro-9.local
