@@ -50,13 +50,13 @@ parameters:
     #ntp_strata_host1: 
     #ntp_strata_host2:
     
- linux:
-   network:
-     interface:
-       weave:
-         enabled: true
-         type: eth
-         proto: manual
-         address: ${_param:single_address}
-         netmask: 255.255.255.0
-         use_interfaces: weave
+  linux:
+    network:
+      interface:
+        weave:
+          enabled: true
+          type: eth
+          proto: manual
+          address: ${_param:single_address}
+          netmask: 255.255.255.0
+          use_interfaces: weave
