@@ -56,7 +56,7 @@ parameters:
         weave:
           enabled: true
           type: eth
-          proto: manual
+          proto: static
           address: ${_param:single_address}
           netmask: 255.255.255.0
           use_interfaces: weave
