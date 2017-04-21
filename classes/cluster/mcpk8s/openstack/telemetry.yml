@@ -1,0 +1,26 @@
+classes:
+- system.linux.system.repo.ubuntu
+- system.linux.system.repo.mcp.openstack
+- system.ceilometer.server.backend.influxdb
+- system.heka.ceilometer_collector.single
+- system.linux.system.repo.saltstack.xenial
+- system.aodh.server.cluster
+- system.ceilometer.server.cluster
+- cluster.mcpk8s.infra
+parameters:
+  _param:
+    keepalived_openstack_telemetry_vip_address: ${_param:openstack_telemetry_address}
+    keepalived_openstack_telemetry_vip_password: ${_param:openstack_telemetry_keepalived_password}
+    keepalived_openstack_telemetry_vip_interface: ens3
+    cluster_vip_address: ${_param:openstack_telemetry_address}
+    cluster_local_address: ${_param:single_address}
+    cluster_node01_hostname: mdb01
+    cluster_node01_address: ${_param:openstack_telemetry_node01_address}
+    cluster_node02_hostname: mdb02
+    cluster_node02_address: ${_param:openstack_telemetry_node02_address}
+    cluster_node03_hostname: mdb03
+    cluster_node03_address: ${_param:openstack_telemetry_node03_address}
+  linux:
+    network:
+      interface:
+        ens3: ${_param:linux_single_interface}

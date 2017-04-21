@@ -1,0 +1,85 @@
+classes:
+- system.linux.system.repo.mcp.openstack
+- system.linux.system.repo.mcp.extra
+- system.linux.system.repo.mcp.contrail
+- system.nova.compute.cluster
+- system.opencontrail.compute.cluster
+- system.opencontrail.client.cluster
+- system.opencontrail.client.resource.virtual_router
+- system.ceilometer.agent.cluster
+- cluster.mcpk8s.infra
+parameters:
+  _param:
+    cluster_vip_address: ${_param:openstack_control_address}
+    cluster_local_address: ${_param:single_address}
+    cluster_node01_hostname: ctl01
+    cluster_node01_address: ${_param:openstack_control_node01_address}
+    cluster_node02_hostname: ctl02
+    cluster_node02_address: ${_param:openstack_control_node02_address}
+    cluster_node03_hostname: ctl03
+    cluster_node03_address: ${_param:openstack_control_node03_address}
+    opencontrail_compute_address: ${_param:tenant_address}
+    nova_vncproxy_url: https://${_param:cluster_public_host}:6080
+    primary_first_nic: eth1
+    primary_second_nic: eth2
+
+  linux:
+    network:
+      interface:
+        eth1:
+          mtu: 9000
+          enabled: true
+          type: slave
+          proto: manual
+          name: ${_param:primary_first_nic}
+          master: bond0
+        eth2:
+          mtu: 9000
+          enabled: true
+          type: slave
+          proto: manual
+          name: ${_param:primary_second_nic}
+          master: bond0
+        bond0:
+          mtu: 9000
+          enabled: true
+          proto: manual
+          type: bond
+          use_interfaces:
+          - ${_param:primary_first_nic}
+          - ${_param:primary_second_nic}
+          slaves: ${_param:primary_first_nic} ${_param:primary_second_nic}
+          mode: active-backup
+        bond0.1:
+          mtu: 9000
+          name: bond0.${_param:control_vlan}
+          enabled: true
+          proto: static
+          type: vlan
+          use_interfaces:
+          - bond0
+          address: ${_param:single_address}
+          netmask: ${_param:control_network_netmask}
+        bond0.2:
+          mtu: 9000
+          name: bond0.${_param:tenant_vlan}
+          enabled: true
+          proto: manual
+          type: vlan
+          use_interfaces:
+          - bond0
+        vhost0:
+          enabled: true
+          type: eth
+          mtu: 9000
+          address: ${_param:tenant_address}
+          netmask: ${_param:tenant_network_netmask}
+          gateway: ${_param:tenant_network_gateway}
+          pre_up_cmds:
+          - /usr/lib/contrail/if-vhost0
+          use_interfaces:
+          - bond0.${_param:tenant_vlan}
+          name_servers:
+          - ${_param:dns_server01}
+          - ${_param:dns_server02}
+    

@@ -1,8 +1,69 @@
 
+classes:
+- system.linux.system.single
+- system.openssh.server.team.lab
+- system.openssh.server.team.tcpcloud
+- system.openssh.server.team.mcp_qa
+- cluster.mcpk8s.openstack
+- cluster.mcpk8s.opencontrail
+- cluster.mcpk8s.stacklight
+- cluster.mcpk8s.stacklight.client
+- cluster.mcpk8s.cicd
 parameters:
   _param:
-    salt_control_trusty_image: http://apt.tcpcloud.eu/images/ubuntu-14-04-x64-201612140957.qcow2
-    salt_control_xenial_image: http://apt.tcpcloud.eu/images/ubuntu-16-04-x64-201612140953.qcow2
+    salt_control_trusty_image: http://apt-mk.mirantis.com/images/ubuntu-14-04-x64-mcp1.0.qcow2
+    salt_control_xenial_image: http://apt-mk.mirantis.com/images/ubuntu-16-04-x64-mcp1.0.qcow2
+
+    # infra service addresses
+    infra_config_hostname: cfg01
+    infra_config_address: 10.167.4.90
+    infra_config_deploy_address: 10.167.5.90
+
+    cluster_domain: mcpk8s
+    cluster_name: mcpk8s
+    cluster_public_host: ${_param:openstack_proxy_address}
+    infra_kvm_address: 10.167.4.240
+    infra_kvm_node01_address: 10.167.4.241
+    infra_kvm_node02_address: 10.167.4.242
+    infra_kvm_node03_address: 10.167.4.243
+    infra_kvm_node01_deploy_address: 10.167.5.241
+    infra_kvm_node02_deploy_address: 10.167.5.242
+    infra_kvm_node03_deploy_address: 10.167.5.243
+    infra_kvm_node01_hostname: kvm01
+    infra_kvm_node02_hostname: kvm02
+    infra_kvm_node03_hostname: kvm03
+
+    glusterfs_node01_address: ${_param:infra_kvm_node01_address}
+    glusterfs_node02_address: ${_param:infra_kvm_node02_address}
+    glusterfs_node03_address: ${_param:infra_kvm_node03_address}
+
+    control_network_netmask: 255.255.255.0
+    tenant_network_netmask: 255.255.255.0
+    control_vlan: 10
+    tenant_vlan: 20
+
+    dns_server01: 8.8.8.8
+    dns_server02: 8.8.4.4
+    deploy_network_netmask: 255.255.255.0
+    deploy_network_gateway: 
+
+    linux_dhcp_interface:
+      enabled: true
+      type: eth
+      proto: dhcp
+    linux_single_interface:
+      enabled: true
+      type: eth
+      proto: static
+      address: ${_param:single_address}
+      netmask: ${_param:control_network_netmask}
+      gateway: ${_param:control_network_gateway}
+      name_servers:
+        - ${_param:dns_server01}
+        - ${_param:dns_server02}
+    tenant_network_gateway: 
+
+
   linux:
     network:
       host:
@@ -16,6 +77,21 @@ parameters:
           names:
           - cfg
           - cfg.${_param:cluster_domain}
+        kvm01:
+          address: ${_param:infra_compute_node01_address}
+          names:
+          - ${_param:infra_compute_node01_hostname}
+          - ${_param:infra_compute_node01_hostname}.${_param:cluster_domain}
+        kvm02:
+          address: ${_param:infra_compute_node02_address}
+          names:
+          - ${_param:infra_compute_node02_hostname}
+          - ${_param:infra_compute_node02_hostname}.${_param:cluster_domain}
+        kvm03:
+          address: ${_param:infra_compute_node03_address}
+          names:
+          - ${_param:infra_compute_node03_hostname}
+          - ${_param:infra_compute_node03_hostname}.${_param:cluster_domain}
     system:
       name: ${_param:infra_config_hostname}
       domain: ${_param:cluster_domain}

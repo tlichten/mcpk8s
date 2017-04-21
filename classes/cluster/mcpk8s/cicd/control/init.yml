@@ -1,0 +1,96 @@
+
+classes:
+  - system.linux.system.haveged
+ #- system.glusterfs.server.volume.salt
+  - system.glusterfs.client.cluster
+  - system.glusterfs.client.volume.aptly
+  - system.glusterfs.client.volume.gerrit
+  - system.glusterfs.client.volume.jenkins
+  - system.glusterfs.client.volume.mysql
+  - system.glusterfs.client.volume.registry
+ #- system.glusterfs.client.volume.salt
+  # Docker
+  - system.docker.host
+  # Docker services
+  - system.docker.swarm.service.aptly
+  - system.docker.swarm.service.docker
+  - system.docker.swarm.service.gerrit
+  - system.docker.swarm.service.jenkins
+  - system.docker.swarm.service.mysql
+  # - system.docker.swarm.service.openldap
+  - system.docker.swarm.service.visualizer
+
+  # Keepalived
+  - system.keepalived.cluster.instance.cicd_control_vip
+
+  # HAProxy
+  - system.salt.minion.cert.proxy.cicd
+  - system.haproxy.proxy.single
+  - system.haproxy.proxy.listen.cicd.aptly
+  - system.haproxy.proxy.listen.cicd.gerrit
+  - system.haproxy.proxy.listen.cicd.jenkins
+  - system.haproxy.proxy.listen.docker.registry
+  - system.haproxy.proxy.listen.docker.visualizer
+  - system.haproxy.proxy.listen.mysql
+  - system.haproxy.proxy.listen.stats
+
+parameters:
+  _param:
+    cluster_node01_name: ${_param:cicd_control_node01_hostname}
+    cluster_node01_address: ${_param:cicd_control_node01_address}
+    cluster_node02_name: ${_param:cicd_control_node02_hostname}
+    cluster_node02_address: ${_param:cicd_control_node02_address}
+    cluster_node03_name: ${_param:cicd_control_node03_hostname}
+    cluster_node03_address: ${_param:cicd_control_node03_address}
+    keepalived_vip_virtual_router_id: 180
+    keepalived_vip_password: password
+    keepalived_vip_interface: ens3
+    cluster_vip_address: ${_param:control_vip_address}
+    control_vip_address: ${_param:cicd_control_address}
+    cluster_public_host: ${_param:control_vip_address}
+    salt_api_password: password
+    # Docker images and versions
+    docker_registry_http_secret: 6666666666666666
+    # CI/CD service databases
+    mysql_admin_password: 6666666666666666
+    mysql_gerrit_password: 6666666666666666
+
+    # Proxy
+    cluster_ssl_certificate:
+      enabled: true
+      pem_file: /etc/haproxy/ssl/${_param:cluster_public_host}-all.pem
+    haproxy_bind_address: ${_param:cluster_vip_address}
+    haproxy_mysql_source_port: 13306
+    salt_minion_ca_host: ${_param:infra_config_hostname}.${_param:cluster_domain}
+
+    # Jenkins
+    jenkins_slave_user: admin
+    jenkins_client_user: admin
+    jenkins_admin_password: 6666666666666666
+    jenkins_slave_password: ${_param:jenkins_admin_password}
+    jenkins_client_password: ${_param:jenkins_admin_password}
+    jenkins_admin_email: ${_param:admin_email}
+    jenkins_admin_public_key: <<WILL_BE_GENERATED>>
+    jenkins_admin_private_key: |
+      <<WILL_BE_GENERATED>>
+    # Jobs params
+    jenkins_gerrit_url: ssh://admin@${_param:gerrit_public_host}:${_param:haproxy_gerrit_ssh_bind_port}
+    jenkins_aptly_api_url: http://${_param:haproxy_aptly_api_bind_host}:${_param:haproxy_aptly_api_bind_port}
+    jenkins_aptly_url: http://${_param:haproxy_aptly_public_bind_host}:${_param:haproxy_aptly_public_bind_port}
+    # Gerrit
+
+    gerrit_admin_email: ${_param:admin_email}
+    gerrit_public_host: ${_param:control_vip_address}
+    gerrit_admin_public_key: ${_param:jenkins_admin_public_key}
+    gerrit_admin_private_key: ${_param:jenkins_admin_private_key}
+    gerrit_admin_password: 6666666666666666
+    gerrit_auth_type: DEVELOPMENT_BECOME_ANY_ACCOUNT
+
+  linux:
+    system:
+      package:
+        ca-certificates-java:
+          version: latest
+    network:
+      interface:
+        ens3: ${_param:linux_single_interface}

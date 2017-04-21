@@ -1,0 +1,33 @@
+classes:
+- system.linux.system.repo.ubuntu
+- system.linux.system.repo.mcp.openstack
+- system.linux.system.repo.saltstack.trusty
+- system.glusterfs.client.volume.salt_pki
+- system.nginx.server.single
+- system.nginx.server.proxy.opencontrail_web
+- system.nginx.server.proxy.openstack_api
+- system.nginx.server.proxy.openstack_vnc
+- system.nginx.server.proxy.openstack_web
+- system.horizon.server.single
+- system.salt.minion.cert.proxy.openstack
+- system.salt.minion.cert.proxy.pki
+- system.sphinx.server.doc.reclass
+- service.keepalived.cluster.single
+- cluster.mcpk8s.infra
+- cluster.mcpk8s.openstack.dashboard
+- cluster.mcpk8s.stacklight.proxy
+parameters:
+  _param:
+    keepalived_vip_interface: eth1
+    keepalived_vip_virtual_router_id: 240
+    nginx_proxy_ssl:
+      enabled: true
+      authority: ${_param:salt_minion_ca_authority}
+      engine: salt
+      mode: secure
+    cluster_vip_address: ${_param:openstack_proxy_address}
+    salt_minion_ca_host: cfg01.${_param:cluster_domain}
+  linux:
+    network:
+      interface:
+        eth1: ${_param:linux_single_interface}

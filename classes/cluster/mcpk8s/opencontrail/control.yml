@@ -1,0 +1,41 @@
+classes:
+- system.linux.system.repo.ubuntu
+- system.linux.system.repo.mcp.openstack
+- system.linux.system.repo.mcp.contrail
+- system.linux.system.repo.saltstack.trusty
+- system.linux.system.repo.cassandra
+- system.neutron.control.opencontrail.cluster
+- system.opencontrail.control.control
+- system.opencontrail.client.cluster
+- system.opencontrail.client.resource.edge_routers
+- system.opencontrail.client.resource.control_node
+- system.opencontrail.client.resource.config_node
+- system.opencontrail.client.resource.database_node
+- system.ceilometer.client.neutron
+- cluster.mcpk8s.infra
+parameters:
+  _param:
+    keepalived_vip_interface: eth1
+    keepalived_vip_virtual_router_id: 60
+    cluster_vip_address: ${_param:opencontrail_control_address}
+    cluster_local_address: ${_param:single_address}
+    cluster_node01_hostname: ntw01
+    cluster_node01_address: ${_param:opencontrail_control_node01_address}
+    cluster_node02_hostname: ntw02
+    cluster_node02_address: ${_param:opencontrail_control_node02_address}
+    cluster_node03_hostname: ntw03
+    cluster_node03_address: ${_param:opencontrail_control_node03_address}
+    opencontrail_router01_hostname: rtr01
+    opencontrail_router01_address: 10.167.4.100
+    opencontrail_router02_hostname: rtr02
+    opencontrail_router02_address: 10.167.4.101
+  linux:
+    network:
+      interface:
+        eth1: ${_param:linux_single_interface}
+      host:
+        ctl:
+          address: ${_param:openstack_control_address}
+          names:
+          - ctl
+          - ctl.${_param:cluster_domain}

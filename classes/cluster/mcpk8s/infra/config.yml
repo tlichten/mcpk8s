@@ -1,54 +1,104 @@
 classes:
-- system.linux.system.repo.tcp_salt
+- system.linux.system.repo.mcp.salt
+- system.linux.system.repo.ubuntu
 - system.openssh.client.lab
 - system.salt.master.pkg
 - system.salt.minion.ca.salt_master
-- system.salt.minion.cert.k8s_server
+- system.salt.master.api
 - system.reclass.storage.salt
-- system.reclass.storage.system.kubernetes_control_cluster
-- cluster.mcpk8s
+- system.reclass.storage.system.physical_control_cluster
+- system.reclass.storage.system.opencontrail_analytics_cluster
+- system.reclass.storage.system.opencontrail_control_cluster
+- system.reclass.storage.system.openstack_control_cluster
+- system.reclass.storage.system.openstack_proxy_cluster
+- system.reclass.storage.system.openstack_database_cluster
+- system.reclass.storage.system.openstack_message_queue_cluster
+- system.reclass.storage.system.openstack_telemetry_cluster
+- system.reclass.storage.system.stacklight_log_cluster
+- system.reclass.storage.system.stacklight_monitor_cluster
+- system.reclass.storage.system.stacklight_telemetry_cluster
+- system.reclass.storage.system.cicd_control_cluster
+- cluster.mcpk8s.infra
 parameters:
   _param:
     salt_master_base_environment: prd
-    reclass_data_repository: "https://github.com/tlichten/mcpk8s.git"
+    reclass_data_repository: "https://github.com/tlichten/mcpk8s"
     reclass_data_revision: master
     reclass_config_master: ${_param:infra_config_deploy_address}
     single_address: ${_param:infra_config_address}
     deploy_address: ${_param:infra_config_deploy_address}
-    salt_master_host: ${_param:infra_config_address}
     linux_system_codename: xenial
+    salt_api_password_hash: "$6$Qr0XdRvdciun2ucl$osj7gvaoxoOsV9BSiZLD0cqYysOCxA/i8CYTgSpCTnqGF25n8.m/QgP5xrOxE46RtJkY4Ta1AaGODHuiA/iwt1"
+    salt_master_host: ${_param:infra_config_address}
   reclass:
     storage:
       node:
-        kubernetes_control_node01:
+        infra_kvm_node01:
           params:
-            deploy_address: ${_param:kubernetes_control_node01_deploy_address}
+            keepalived_vip_priority: 100
             linux_system_codename: xenial
-        kubernetes_control_node02:
+        infra_kvm_node02:
           params:
-            deploy_address: ${_param:kubernetes_control_node02_deploy_address}
+            keepalived_vip_priority: 101
             linux_system_codename: xenial
-        kubernetes_control_node03:
+        infra_kvm_node03:
           params:
-            deploy_address: ${_param:kubernetes_control_node03_deploy_address}
+            keepalived_vip_priority: 102
             linux_system_codename: xenial
-        kubernetes_compute_node01:
-          name: ${_param:kubernetes_compute_node01_hostname}
+        openstack_control_node01:
+          classes:
+          - cluster.${_param:cluster_name}.openstack.control_init
+        openstack_database_node01:
+          classes:
+          - cluster.${_param:cluster_name}.openstack.database_init
+        stacklight_log_node01:
+          classes:
+          - system.elasticsearch.client.single
+        stacklight_monitor_node01:
+          classes:
+          - system.grafana.client.single
+          - system.kibana.client.single
+        openstack_telemetry_node01:
+          params:
+            linux_system_codename: xenial
+            keepalived_vip_priority: 100
+        openstack_telemetry_node02:
+          params:
+            linux_system_codename: xenial
+            keepalived_vip_priority: 101
+        openstack_telemetry_node03:
+          params:
+            linux_system_codename: xenial
+            keepalived_vip_priority: 102
+        stacklight_log_node01:
+          classes:
+          - system.elasticsearch.client.single
+        stacklight_monitor_node01:
+          classes:
+          - system.grafana.client.single
+          - system.kibana.client.single
+        openstack_control_node01:
+          classes:
+          - cluster.${_param:cluster_name}.openstack.control_init
+        openstack_database_node01:
+          classes:
+          - cluster.${_param:cluster_name}.openstack.database_init
+        openstack_compute_rack01:
+          name: ${_param:openstack_compute_rack01_hostname}<<count>>
           domain: ${_param:cluster_domain}
           classes:
-          - cluster.${_param:cluster_name}.kubernetes.compute
+          - cluster.${_param:cluster_name}.openstack.compute
+          repeat:
+            count: 100
+            start: 1
+            digits: 3
+            params:
+              single_address:
+                value: ${_param:openstack_compute_rack01_sigle_subnet}.<<count>>
+                start: 101
+              tenant_address:
+                value: ${_param:openstack_compute_rack01_tenant_subnet}.<<count>>
+                start: 101
           params:
             salt_master_host: ${_param:reclass_config_master}
             linux_system_codename: xenial
-            deploy_address: ${_param:kubernetes_compute_node01_deploy_address}
-            single_address: ${_param:kubernetes_compute_node01_single_address}
-        kubernetes_compute_node02:
-          name: ${_param:kubernetes_compute_node02_hostname}
-          domain: ${_param:cluster_domain}
-          classes:
-          - cluster.${_param:cluster_name}.kubernetes.compute
-          params:
-            salt_master_host: ${_param:reclass_config_master}
-            linux_system_codename: xenial
-            deploy_address: ${_param:kubernetes_compute_node02_deploy_address}
-            single_address: ${_param:kubernetes_compute_node02_single_address}

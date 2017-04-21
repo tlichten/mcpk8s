@@ -1,0 +1,35 @@
+classes:
+- system.linux.system.repo.ubuntu
+- system.linux.system.repo.mcp.extra
+- system.linux.system.repo.mcp.openstack
+- system.linux.system.repo.saltstack.trusty
+- system.linux.system.repo.glusterfs
+- system.memcached.server.single
+- system.ceilometer.client
+- system.keystone.server.cluster
+- system.glance.control.cluster
+- system.nova.control.cluster
+- system.cinder.control.cluster
+- system.cinder.volume.single
+- system.heat.server.cluster
+- system.glusterfs.client.cluster
+- system.glusterfs.client.volume.glance
+- system.glusterfs.client.volume.keystone
+- cluster.mcpk8s.infra
+parameters:
+  _param:
+    keepalived_vip_interface: eth1
+    keepalived_vip_virtual_router_id: 50
+    cluster_vip_address: ${_param:openstack_control_address}
+    cluster_local_address: ${_param:single_address}
+    cluster_node01_hostname: ctl01
+    cluster_node01_address: ${_param:openstack_control_node01_address}
+    cluster_node02_hostname: ctl02
+    cluster_node02_address: ${_param:openstack_control_node02_address}
+    cluster_node03_hostname: ctl03
+    cluster_node03_address: ${_param:openstack_control_node03_address}
+    nova_vncproxy_url: https://${_param:cluster_public_host}:6080
+  linux:
+    network:
+      interface:
+        eth1: ${_param:linux_single_interface}

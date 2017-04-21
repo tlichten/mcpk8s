@@ -1,0 +1,6 @@
+classes:
+- system.nginx.server.proxy.grafana_web
+- system.nginx.server.proxy.kibana_web
+- system.nginx.server.proxy.nagios_web
+- system.salt.minion.cert.proxy
+- cluster.mcpk8s.infra
