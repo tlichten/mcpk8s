@@ -23,8 +23,11 @@ parameters:
   _param:
     cluster_vip_address: ${_param:infra_kvm_address}
     cluster_node01_address: ${_param:infra_kvm_node01_address}
+    cluster_node01_hostname: kvm01
     cluster_node02_address: ${_param:infra_kvm_node02_address}
+    cluster_node02_hostname: kvm02
     cluster_node03_address: ${_param:infra_kvm_node03_address}
+    cluster_node03_hostname: kvm03
     keepalived_vip_interface: br_ctl
     keepalived_vip_virtual_router_id: 69
     deploy_nic: weave.${_param:deploy_vlan}
