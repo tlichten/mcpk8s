@@ -104,6 +104,7 @@ parameters:
           bridge: br_ctl
         eth0:
           bridge: br_mgm
+
   #   system:
   #     package:
   #       linux-image-4.8.0-39-generic:

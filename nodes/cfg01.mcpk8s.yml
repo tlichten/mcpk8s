@@ -10,11 +10,47 @@ parameters:
     reclass_data_repository: "https://github.com/tlichten/mcpk8s"
     reclass_data_revision: master
     salt_formula_branch: master
-    reclass_config_master: SALT_MASTER
+    reclass_config_master: 10.80.198.131
     single_address: 10.167.4.90
-    salt_master_host: SALT_MASTER
+    salt_master_host: 10.80.198.131
     salt_master_base_environment: prd
   linux:
+    network:
+      interface:
+        br_mgm:
+          enabled: true
+          proto: static
+          type: bridge
+          address: ${_param:deploy_address}
+          netmask: ${_param:deploy_network_netmask}
+          gateway: ${_param:deploy_network_gateway}
+          name_servers:
+          - ${_param:dns_server01}
+          - ${_param:dns_server02}
+          use_interfaces:
+          - weave.${_param:deploy_vlan}
+        weave.10:
+          name: weave.${_param:control_vlan}
+          enabled: true
+          proto: manual
+          type: vlan
+          use_interfaces:
+          - weave
+        weave.30:
+          name: weave.${_param:deploy_vlan}
+          enabled: true
+          proto: manual
+          type: vlan
+          use_interfaces:
+          - weave
+        br_ctl:
+          enabled: true
+          type: bridge
+          proto: static
+          address: ${_param:single_address}
+          netmask: ${_param:control_network_netmask}
+          use_interfaces:
+          - weave.${_param:control_vlan}        
     system:
       name: cfg01
       domain: mcpk8s

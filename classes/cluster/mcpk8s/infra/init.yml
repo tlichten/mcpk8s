@@ -22,6 +22,7 @@ parameters:
     cluster_domain: mcpk8s
     cluster_name: mcpk8s
     cluster_public_host: ${_param:openstack_proxy_address}
+    deploy_address: 10.167.5.90
     infra_kvm_address: 10.167.4.240
     infra_kvm_node01_address: 10.167.4.241
     infra_kvm_node02_address: 10.167.4.242
@@ -74,6 +75,9 @@ parameters:
       enabled: true
       type: eth
       proto: dhcp
+      name_servers:
+        - ${_param:dns_server01}
+        - ${_param:dns_server02}      
     linux_single_interface:
       enabled: true
       type: eth
@@ -115,41 +119,6 @@ parameters:
           names:
           - ${_param:infra_compute_node03_hostname}
           - ${_param:infra_compute_node03_hostname}.${_param:cluster_domain}
-      interface:
-        br_mgm:
-          enabled: true
-          proto: static
-          type: bridge
-          address: ${_param:deploy_address}
-          netmask: ${_param:deploy_network_netmask}
-          gateway: ${_param:deploy_network_gateway}
-          name_servers:
-          - ${_param:dns_server01}
-          - ${_param:dns_server02}
-          use_interfaces:
-          - weave.${_param:deploy_vlan}
-        weave.10:
-          name: weave.${_param:control_vlan}
-          enabled: true
-          proto: manual
-          type: vlan
-          use_interfaces:
-          - weave
-        weave.30:
-          name: weave.${_param:deploy_vlan}
-          enabled: true
-          proto: manual
-          type: vlan
-          use_interfaces:
-          - weave
-        br_ctl:
-          enabled: true
-          type: bridge
-          proto: static
-          address: ${_param:single_address}
-          netmask: ${_param:control_network_netmask}
-          use_interfaces:
-          - weave.${_param:control_vlan}
     system:
       name: ${_param:infra_config_hostname}
       domain: ${_param:cluster_domain}
