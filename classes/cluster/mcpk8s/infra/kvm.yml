@@ -27,7 +27,7 @@ parameters:
     cluster_node03_address: ${_param:infra_kvm_node03_address}
     keepalived_vip_interface: br_ctl
     keepalived_vip_virtual_router_id: 69
-    deploy_nic: eth0
+    deploy_nic: weave.${_param:deploy_vlan}
     primary_first_nic: weave
     primary_second_nic: eth2
   salt:
@@ -102,53 +102,8 @@ parameters:
           bridge: br_mgm
         eth1:
           bridge: br_ctl
-  linux:
-    network:
-      interface:
         eth0:
-          enabled: true
-          type: eth
-          proto: manual
-          name: ${_param:deploy_nic}
-        eth1:
-          enabled: true
-          type: slave
-          proto: manual
-          name: ${_param:primary_first_nic}
-          master: bond0
-        eth2:
-          enabled: true
-          type: slave
-          proto: manual
-          name: ${_param:primary_second_nic}
-          master: bond0
-        br_mgm:
-          enabled: true
-          proto: static
-          type: bridge
-          address: ${_param:deploy_address}
-          netmask: ${_param:deploy_network_netmask}
-          gateway: ${_param:deploy_network_gateway}
-          name_servers:
-          - ${_param:dns_server01}
-          - ${_param:dns_server02}
-          use_interfaces:
-          - ${_param:deploy_nic}
-        weave.1:
-          name: weave.${_param:control_vlan}
-          enabled: true
-          proto: manual
-          type: vlan
-          use_interfaces:
-          - weave
-        br_ctl:
-          enabled: true
-          type: bridge
-          proto: static
-          address: ${_param:single_address}
-          netmask: ${_param:control_network_netmask}
-          use_interfaces:
-          - weave.${_param:control_vlan}
+          bridge: br_mgm
   #   system:
   #     package:
   #       linux-image-4.8.0-39-generic:
