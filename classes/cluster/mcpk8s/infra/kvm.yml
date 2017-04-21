@@ -1,5 +1,5 @@
 classes:
-- system.linux.system.repo.mcp10
+#- system.linux.system.repo.mcp10
 - system.linux.system.repo.ubuntu
 - service.keepalived.cluster.single
 - system.glusterfs.server.cluster
@@ -29,7 +29,7 @@ parameters:
     keepalived_vip_virtual_router_id: 69
     deploy_nic: eth0
     primary_first_nic: weave
-    primary_second_nic: weave
+    primary_second_nic: eth2
   salt:
     control:
       size: #RAM 4096,8192,16384,32768,65536
@@ -134,22 +134,13 @@ parameters:
           - ${_param:dns_server02}
           use_interfaces:
           - ${_param:deploy_nic}
-        bond0:
-          enabled: true
-          proto: manual
-          type: bond
-          use_interfaces:
-          - ${_param:primary_first_nic}
-          - ${_param:primary_second_nic}
-          slaves: ${_param:primary_first_nic} ${_param:primary_second_nic}
-          mode: active-backup
-        bond0.1:
-          name: bond0.${_param:control_vlan}
+        weave.1:
+          name: weave.${_param:control_vlan}
           enabled: true
           proto: manual
           type: vlan
           use_interfaces:
-          - bond0
+          - weave
         br_ctl:
           enabled: true
           type: bridge
@@ -157,7 +148,7 @@ parameters:
           address: ${_param:single_address}
           netmask: ${_param:control_network_netmask}
           use_interfaces:
-          - bond0.${_param:control_vlan}
+          - weave.${_param:control_vlan}
   #   system:
   #     package:
   #       linux-image-4.8.0-39-generic:
