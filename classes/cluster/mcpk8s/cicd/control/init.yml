@@ -63,6 +63,12 @@ parameters:
     haproxy_mysql_source_port: 13306
     salt_minion_ca_host: ${_param:infra_config_hostname}.${_param:cluster_domain}
 
+    aptly_gpg_keypair_id: none
+    aptly_gpg_passphrase: none
+    aptly_server_secure: false
+    aptly_gpg_public_key: none
+    aptly_gpg_private_key: none
+    
     # Jenkins
     jenkins_slave_user: admin
     jenkins_client_user: admin
