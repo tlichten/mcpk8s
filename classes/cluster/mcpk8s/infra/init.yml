@@ -35,6 +35,7 @@ parameters:
     infra_kvm_node03_hostname: kvm03
     infra_compute_node01_address: 10.167.4.211
     infra_compute_node02_address: 10.167.4.212
+    cicd_control_address: 10.167.4.170
     cicd_control_node01_address: 10.167.4.171
     cicd_control_node01_hostname: cid01
     cicd_control_node02_address: 10.167.4.172
