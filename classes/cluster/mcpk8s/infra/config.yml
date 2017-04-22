@@ -31,6 +31,11 @@ parameters:
     salt_api_password_hash: "$6$Qr0XdRvdciun2ucl$osj7gvaoxoOsV9BSiZLD0cqYysOCxA/i8CYTgSpCTnqGF25n8.m/QgP5xrOxE46RtJkY4Ta1AaGODHuiA/iwt1"
     salt_master_host: ${_param:infra_config_address}
   reclass:
+    linux:
+      system:
+        kernel:
+          sysctl:
+            net.bridge.bridge-nf-call-iptables: 0
     storage:
       node:
         infra_kvm_node01:
