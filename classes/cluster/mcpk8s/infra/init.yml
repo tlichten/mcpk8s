@@ -136,17 +136,17 @@ parameters:
           - cfg
           - cfg.${_param:cluster_domain}
         kvm01:
-          address: ${_param:infra_compute_node01_address}
+          address: ${_param:infra_kvm_node01_address}
           names:
           - ${_param:infra_kvm_node01_hostname}
           - ${_param:infra_kvm_node01_hostname}.${_param:cluster_domain}
         kvm02:
-          address: ${_param:infra_compute_node02_address}
+          address: ${_param:infra_kvm_node02_address}
           names:
           - ${_param:infra_kvm_node02_hostname}
           - ${_param:infra_kvm_node02_hostname}.${_param:cluster_domain}
         kvm03:
-          address: ${_param:infra_compute_node03_address}
+          address: ${_param:infra_kvm_node03_address}
           names:
           - ${_param:infra_kvm_node03_hostname}
           - ${_param:infra_kvm_node03_hostname}.${_param:cluster_domain}
