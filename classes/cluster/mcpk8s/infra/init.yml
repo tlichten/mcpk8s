@@ -36,8 +36,11 @@ parameters:
     infra_compute_node01_address: 10.167.4.211
     infra_compute_node02_address: 10.167.4.212
     cicd_control_node01_address: 10.167.4.171
+    cicd_control_node01_hostname: cid01
     cicd_control_node02_address: 10.167.4.172
+    cicd_control_node01_hostname: cid02
     cicd_control_node03_address: 10.167.4.173
+    cicd_control_node01_hostname: cid03
     glusterfs_node01_address: ${_param:infra_kvm_node01_address}
     glusterfs_node02_address: ${_param:infra_kvm_node02_address}
     glusterfs_node03_address: ${_param:infra_kvm_node03_address}
