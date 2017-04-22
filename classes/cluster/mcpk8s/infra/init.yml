@@ -51,13 +51,9 @@ parameters:
     infra_compute_node02_deploy_address: 10.167.5.222
     infra_compute_node03_deploy_address: 10.167.5.223
 
-    infra_compute_node01_data_address: 10.167.2.221
-    infra_compute_node02_data_address: 10.167.2.222
-    infra_compute_node03_data_address: 10.167.2.223
-
-    infra_compute_node01_hostname: cmp01
-    infra_compute_node02_hostname: cmp02
-    infra_compute_node03_hostname: cmp03
+    infra_compute_node01_hostname: cmp001
+    infra_compute_node02_hostname: cmp002
+    infra_compute_node03_hostname: cmp003
 
     control_network_netmask: 255.255.255.0
     tenant_network_netmask: 255.255.255.0
@@ -107,18 +103,18 @@ parameters:
         kvm01:
           address: ${_param:infra_compute_node01_address}
           names:
-          - ${_param:infra_compute_node01_hostname}
-          - ${_param:infra_compute_node01_hostname}.${_param:cluster_domain}
+          - ${_param:infra_kvm_node01_hostname}
+          - ${_param:infra_kvm_node01_hostname}.${_param:cluster_domain}
         kvm02:
           address: ${_param:infra_compute_node02_address}
           names:
-          - ${_param:infra_compute_node02_hostname}
-          - ${_param:infra_compute_node02_hostname}.${_param:cluster_domain}
+          - ${_param:infra_kvm_node02_hostname}
+          - ${_param:infra_kvm_node02_hostname}.${_param:cluster_domain}
         kvm03:
           address: ${_param:infra_compute_node03_address}
           names:
-          - ${_param:infra_compute_node03_hostname}
-          - ${_param:infra_compute_node03_hostname}.${_param:cluster_domain}
+          - ${_param:infra_kvm_node03_hostname}
+          - ${_param:infra_kvm_node03_hostname}.${_param:cluster_domain}
     system:
       name: ${_param:infra_config_hostname}
       domain: ${_param:cluster_domain}
