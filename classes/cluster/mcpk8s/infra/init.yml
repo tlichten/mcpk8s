@@ -92,6 +92,7 @@ parameters:
 
 
   linux:
+    network:
       host:
         cfg01:
           address: ${_param:infra_config_address}
