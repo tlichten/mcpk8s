@@ -68,8 +68,8 @@ parameters:
     dns_server01: 8.8.8.8
     dns_server02: 8.8.4.4
     deploy_network_netmask: 255.255.255.0
-    deploy_network_gateway: 10.167.5.1
-    control_network_gateway: 10.167.4.1
+    deploy_network_gateway: 10.167.5.90
+    control_network_gateway: 10.167.4.90
 
     linux_dhcp_interface:
       enabled: true
