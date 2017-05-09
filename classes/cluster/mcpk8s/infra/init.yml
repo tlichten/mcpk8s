@@ -4,6 +4,7 @@ classes:
 - system.openssh.server.team.lab
 - system.openssh.server.team.tcpcloud
 - system.openssh.server.team.mcp_qa
+- cluster.mcpk8s.kubernetes
 - cluster.mcpk8s.openstack
 - cluster.mcpk8s.opencontrail
 - cluster.mcpk8s.stacklight
@@ -115,13 +116,8 @@ parameters:
         kvm03:
           address: ${_param:infra_kvm_node03_address}
           names:
-<<<<<<< HEAD
           - ${_param:infra_compute_node03_hostname}
           - ${_param:infra_compute_node03_hostname}.${_param:cluster_domain}
-=======
-          - ${_param:infra_kvm_node03_hostname}
-          - ${_param:infra_kvm_node03_hostname}.${_param:cluster_domain}
->>>>>>> c43ac1b5f6072751ee8f588d705dd3c0525e8e16
     system:
       name: ${_param:infra_config_hostname}
       domain: ${_param:cluster_domain}
