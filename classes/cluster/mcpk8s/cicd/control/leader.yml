@@ -18,7 +18,6 @@ classes:
 
   # Gerrit
   - system.gerrit.client
-  - system.gerrit.client.team.mirantis
   - system.gerrit.client.project.ci
 
   - system.docker.swarm.master

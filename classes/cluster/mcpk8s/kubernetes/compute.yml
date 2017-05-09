@@ -1,0 +1,33 @@
+classes:
+- system.linux.system.repo.docker
+- system.kubernetes.pool.cluster
+- system.salt.minion.cert.k8s_client
+- system.salt.minion.cert.etcd_client
+- cluster.mcpk8s.infra
+parameters:
+  _param:
+    kubernetes_calicoctl_image: calico/ctl:latest
+    kubernetes_calico_image: calico/node:latest
+    kubernetes_calico_cni_image: calico/cni:latest
+    kubernetes_hyperkube_image: gcr.io/google_containers/hyperkube-amd64:v1.5.1
+  docker:
+    host:
+      pkgs:
+        - docker-engine=1.12.6-0~ubuntu-xenial
+        - python-docker
+  kubernetes:
+    pool:
+      network:
+        etcd:
+          ssl:
+            enabled: True
+        image: ${_param:kubernetes_calico_image}
+        calicoctl:
+          image: ${_param:kubernetes_calicoctl_image}
+        cni:
+          image: ${_param:kubernetes_calico_cni_image}
+        prometheus:
+          enabled: true
+    common:
+      hyperkube:
+        image: ${_param:kubernetes_hyperkube_image}
